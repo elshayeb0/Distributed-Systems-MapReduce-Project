@@ -1,0 +1,1 @@
+"""Compatibility shim for the removed stdlib distutils package."""
