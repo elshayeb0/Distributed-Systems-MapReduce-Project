@@ -1,0 +1,10 @@
+big data systems use distributed computing to process massive datasets
+mapreduce allows scalable processing across multiple machines
+distributed systems improve reliability and fault tolerance
+data engineers design pipelines for large scale analytics
+parallel processing reduces computation time in big data environments
+cloud platforms support distributed storage and computation
+hadoop and spark are popular big data frameworks
+data processing workflows include ingestion transformation and analysis
+efficient systems require load balancing and resource management
+modern analytics relies on scalable distributed architectures

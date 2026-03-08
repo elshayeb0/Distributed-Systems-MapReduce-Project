@@ -1,0 +1,10 @@
+mapreduce is widely used in big data analytics applications
+distributed computing improves performance and scalability
+data scientists analyze datasets using machine learning techniques
+large scale systems require monitoring and optimization
+cloud computing enables flexible infrastructure for analytics
+parallel algorithms process data faster than sequential methods
+data pipelines collect clean and transform raw information
+analytics platforms provide visualization and reporting tools
+fault tolerant systems recover automatically from failures
+distributed environments support real time data processing
