@@ -1,7 +1,7 @@
 PYTHON := /Users/ZiadElshayeb/Documents/University\ Material/Courses/Distributed\ Systems/.venv/bin/python
 PYTEST := PYTHONPATH=. $(PYTHON) -m pytest
 
-.PHONY: test test-base run-t1 run-t1-raw check-t1 clean-output
+.PHONY: test test-base run-t1 run-t1-raw check-t1 run-t2 check-t2 clean-output coverage
 
 test:
 	$(PYTEST)
@@ -18,8 +18,14 @@ run-t1:
 check-t1:
 	sed -n '1,60p' outputs/InvertedIndex_OUTPUT.txt
 
+run-t2:
+	$(PYTHON) -m src.task2_max_temperature data/raw/T2/temperature_readings.txt | sort > outputs/MaximumTemperature_OUTPUT.txt
+
+check-t2:
+	sed -n '1,60p' outputs/MaximumTemperature_OUTPUT.txt
+
 clean-output:
-	rm -f outputs/InvertedIndex_OUTPUT.txt
+	rm -f outputs/InvertedIndex_OUTPUT.txt outputs/MaximumTemperature_OUTPUT.txt
 
 coverage:
 	$(PYTEST) --cov=src --cov-report=term-missing --cov-report=html
