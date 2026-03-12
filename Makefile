@@ -1,4 +1,4 @@
-PYTHON := python
+PYTHON := /Users/ZiadElshayeb/Documents/University\ Material/Courses/Distributed\ Systems/.venv/bin/python
 PYTEST := PYTHONPATH=. $(PYTHON) -m pytest
 
 .PHONY: test test-base run-t1 run-t1-raw check-t1 clean-output
