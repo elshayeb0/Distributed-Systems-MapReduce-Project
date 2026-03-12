@@ -1,7 +1,8 @@
 PYTHON := /Users/ZiadElshayeb/Documents/University\ Material/Courses/Distributed\ Systems/.venv/bin/python
 PYTEST := PYTHONPATH=. $(PYTHON) -m pytest
 
-.PHONY: test test-base test-t3 run-t1 run-t1-raw check-t1 run-t2 check-t2 run-t3 check-t3 clean-output coverage coverage-t3
+.PHONY: test test-base test-t3 test-t4 run-t1 run-t1-raw check-t1 run-t2 check-t2 run-t3 check-t3 run-t4 check-t4 clean-output coverage coverage-t3 coverage-t4
+
 test:
 	$(PYTEST)
 
@@ -29,14 +30,26 @@ run-t3:
 check-t3:
 	sed -n '1,60p' outputs/AverageMovieRating_OUTPUT.txt
 
+run-t4:
+	$(PYTHON) -m src.task4_product_sales_total data/raw/T4/product_sales.txt | sort > outputs/ProductSalesTotal_OUTPUT.txt
+
+check-t4:
+	sed -n '1,60p' outputs/ProductSalesTotal_OUTPUT.txt
+
 test-t3:
 	$(PYTEST) --cov=src.task3_average_movie_rating --cov-report=term-missing tests/test_task3_average_movie_rating.py
+
+test-t4:
+	$(PYTEST) --cov=src.task4_product_sales_total --cov-report=term-missing tests/test_task4_product_sales_total.py
 
 coverage-t3:
 	$(PYTEST) --cov=src.task3_average_movie_rating --cov-report=term-missing --cov-report=html tests/test_task3_average_movie_rating.py
 
+coverage-t4:
+	$(PYTEST) --cov=src.task4_product_sales_total --cov-report=term-missing --cov-report=html tests/test_task4_product_sales_total.py
+
 clean-output:
-	rm -f outputs/InvertedIndex_OUTPUT.txt outputs/MaximumTemperature_OUTPUT.txt outputs/AverageMovieRating_OUTPUT.txt
+	rm -f outputs/InvertedIndex_OUTPUT.txt outputs/MaximumTemperature_OUTPUT.txt outputs/AverageMovieRating_OUTPUT.txt outputs/ProductSalesTotal_OUTPUT.txt
 
 coverage:
 	$(PYTEST) --cov=src --cov-report=term-missing --cov-report=html
