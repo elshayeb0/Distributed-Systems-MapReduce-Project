@@ -1,7 +1,7 @@
 PYTHON := /Users/ZiadElshayeb/Documents/University\ Material/Courses/Distributed\ Systems/.venv/bin/python
 PYTEST := PYTHONPATH=. $(PYTHON) -m pytest
 
-.PHONY: test test-base test-t3 test-t4 run-t1 run-t1-raw check-t1 run-t2 check-t2 run-t3 check-t3 run-t4 check-t4 clean-output coverage coverage-t3 coverage-t4
+.PHONY: test test-base test-t3 test-t4 run-t1 run-t1-raw check-t1 run-t2 check-t2 run-t3 check-t3 run-t4 check-t4 clean-output coverage coverage-t3 coverage-t4 test-t5 run-t5 check-t5 coverage-t5
 
 test:
 	$(PYTEST)
@@ -48,8 +48,20 @@ coverage-t3:
 coverage-t4:
 	$(PYTEST) --cov=src.task4_product_sales_total --cov-report=term-missing --cov-report=html tests/test_task4_product_sales_total.py
 
+run-t5:
+	$(PYTHON) -m src.task5_most_frequent_word data/raw/T5/bonus_text.txt > outputs/MostFrequentWord_OUTPUT.txt
+
+check-t5:
+	sed -n '1,60p' outputs/MostFrequentWord_OUTPUT.txt
+
+test-t5:
+	$(PYTEST) --cov=src.task5_most_frequent_word --cov-report=term-missing tests/test_task5_most_frequent_word.py
+
+coverage-t5:
+	$(PYTEST) --cov=src.task5_most_frequent_word --cov-report=term-missing --cov-report=html tests/test_task5_most_frequent_word.py
+
 clean-output:
-	rm -f outputs/InvertedIndex_OUTPUT.txt outputs/MaximumTemperature_OUTPUT.txt outputs/AverageMovieRating_OUTPUT.txt outputs/ProductSalesTotal_OUTPUT.txt
+	rm -f outputs/InvertedIndex_OUTPUT.txt outputs/MaximumTemperature_OUTPUT.txt outputs/AverageMovieRating_OUTPUT.txt outputs/ProductSalesTotal_OUTPUT.txt outputs/MostFrequentWord_OUTPUT.txt
 
 coverage:
 	$(PYTEST) --cov=src --cov-report=term-missing --cov-report=html
