@@ -60,3 +60,17 @@ class TestMRMostFrequentWord:
         )
 
         assert results == [("data", 8)]
+
+    def test_steps_returns_one_step_for_intermediate_only_mode(self) -> None:
+        job = MRMostFrequentWord(args=["--intermediate-only"])
+
+        steps = job.steps()
+
+        assert len(steps) == 1
+
+    def test_steps_returns_two_steps_for_full_mode(self) -> None:
+        job = MRMostFrequentWord(args=[])
+
+        steps = job.steps()
+
+        assert len(steps) == 2

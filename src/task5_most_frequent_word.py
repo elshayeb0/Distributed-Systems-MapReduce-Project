@@ -14,6 +14,15 @@ class MRMostFrequentWord(BaseMapReduceJob):
 
     WORD_PATTERN = re.compile(r"\b[a-zA-Z0-9]+\b")
 
+    def configure_args(self) -> None:
+        """Add a flag to stop after the intermediate word-count step."""
+        super().configure_args()
+        self.add_passthru_arg(
+            "--intermediate-only",
+            action="store_true",
+            help="Run only the word-frequency step and output intermediate counts.",
+        )
+
     @classmethod
     def tokenize(cls, line: str) -> list[str]:
         """Normalize and tokenize a line into lowercase words."""
@@ -53,9 +62,14 @@ class MRMostFrequentWord(BaseMapReduceJob):
         yield most_frequent_word, max_frequency
 
     def steps(self) -> list[MRStep]:
-        """Run word count first, then global max selection."""
+        """Run either the intermediate word-count step or the full two-step pipeline."""
+        word_count_step = MRStep(mapper=self.mapper, reducer=self.reducer)
+
+        if self.options.intermediate_only:
+            return [word_count_step]
+
         return [
-            MRStep(mapper=self.mapper, reducer=self.reducer),
+            word_count_step,
             MRStep(mapper=self.mapper_find_max, reducer=self.reducer_find_max),
         ]
 
