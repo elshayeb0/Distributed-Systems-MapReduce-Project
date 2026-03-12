@@ -1,8 +1,7 @@
 PYTHON := /Users/ZiadElshayeb/Documents/University\ Material/Courses/Distributed\ Systems/.venv/bin/python
 PYTEST := PYTHONPATH=. $(PYTHON) -m pytest
 
-.PHONY: test test-base run-t1 run-t1-raw check-t1 run-t2 check-t2 clean-output coverage
-
+.PHONY: test test-base test-t3 run-t1 run-t1-raw check-t1 run-t2 check-t2 run-t3 check-t3 clean-output coverage coverage-t3
 test:
 	$(PYTEST)
 
@@ -24,8 +23,20 @@ run-t2:
 check-t2:
 	sed -n '1,60p' outputs/MaximumTemperature_OUTPUT.txt
 
+run-t3:
+	$(PYTHON) -m src.task3_average_movie_rating data/raw/T3/movie_ratings.txt | sort > outputs/AverageMovieRating_OUTPUT.txt
+
+check-t3:
+	sed -n '1,60p' outputs/AverageMovieRating_OUTPUT.txt
+
+test-t3:
+	$(PYTEST) --cov=src.task3_average_movie_rating --cov-report=term-missing tests/test_task3_average_movie_rating.py
+
+coverage-t3:
+	$(PYTEST) --cov=src.task3_average_movie_rating --cov-report=term-missing --cov-report=html tests/test_task3_average_movie_rating.py
+
 clean-output:
-	rm -f outputs/InvertedIndex_OUTPUT.txt outputs/MaximumTemperature_OUTPUT.txt
+	rm -f outputs/InvertedIndex_OUTPUT.txt outputs/MaximumTemperature_OUTPUT.txt outputs/AverageMovieRating_OUTPUT.txt
 
 coverage:
 	$(PYTEST) --cov=src --cov-report=term-missing --cov-report=html
