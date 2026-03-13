@@ -5,7 +5,7 @@
 # ============================================================
 # Python / Pytest configuration
 # ============================================================
-PYTHON := /Users/ZiadElshayeb/Documents/University\ Material/Courses/Distributed\ Systems/.venv/bin/python
+PYTHON ?= python3
 PYTEST := PYTHONPATH=. $(PYTHON) -m pytest
 CHECK_LINES := 60
 OUTPUT_DIR := outputs
@@ -32,6 +32,9 @@ T5_OUTPUT := $(OUTPUT_DIR)/MostFrequentWord_OUTPUT.txt
 	run-t5-intermediate check-t5-intermediate \
 	run-t5 check-t5 test-t5 coverage-t5
 
+$(OUTPUT_DIR):
+	mkdir -p $(OUTPUT_DIR)
+
 # ============================================================
 # General project targets
 # ============================================================
@@ -50,10 +53,10 @@ clean-output:
 # ============================================================
 # Task 1 - Inverted Index
 # ============================================================
-run-t1-raw:
+run-t1-raw: $(OUTPUT_DIR)
 	$(PYTHON) -m src.task1_inverted_index data/raw/T1/*.txt | sort > $(T1_OUTPUT)
 
-run-t1:
+run-t1: $(OUTPUT_DIR)
 	$(PYTHON) -m src.task1_inverted_index data/raw/T1/*.txt | sort | $(PYTHON) -c 'import ast, sys; [print(f"Word: {ast.literal_eval(line.split("\t", 1)[0])}\nDocuments:\n" + "\n".join(f"  - {doc}" for doc in ast.literal_eval(line.split("\t", 1)[1])) + "\n") for line in sys.stdin if line.strip()]' > $(T1_OUTPUT)
 
 check-t1:
@@ -68,7 +71,7 @@ coverage-t1:
 # ============================================================
 # Task 2 - Maximum Temperature
 # ============================================================
-run-t2:
+run-t2: $(OUTPUT_DIR)
 	$(PYTHON) -m src.task2_max_temperature data/raw/T2/temperature_readings.txt | sort > $(T2_OUTPUT)
 
 check-t2:
@@ -83,7 +86,7 @@ coverage-t2:
 # ============================================================
 # Task 3 - Average Movie Rating
 # ============================================================
-run-t3:
+run-t3: $(OUTPUT_DIR)
 	$(PYTHON) -m src.task3_average_movie_rating data/raw/T3/movie_ratings.txt | sort > $(T3_OUTPUT)
 
 check-t3:
@@ -98,7 +101,7 @@ coverage-t3:
 # ============================================================
 # Task 4 - Product Sales Total
 # ============================================================
-run-t4:
+run-t4: $(OUTPUT_DIR)
 	$(PYTHON) -m src.task4_product_sales_total data/raw/T4/product_sales.txt | sort > $(T4_OUTPUT)
 
 check-t4:
@@ -113,13 +116,13 @@ coverage-t4:
 # ============================================================
 # Task 5 - Most Frequent Word
 # ============================================================
-run-t5-intermediate:
+run-t5-intermediate: $(OUTPUT_DIR)
 	$(PYTHON) -m src.task5_most_frequent_word --intermediate-only data/raw/T5/bonus_text.txt | sort > $(T5_INTERMEDIATE_OUTPUT)
 
 check-t5-intermediate:
 	sed -n '1,$(CHECK_LINES)p' $(T5_INTERMEDIATE_OUTPUT)
 
-run-t5:
+run-t5: $(OUTPUT_DIR)
 	$(PYTHON) -m src.task5_most_frequent_word data/raw/T5/bonus_text.txt > $(T5_OUTPUT)
 
 check-t5:

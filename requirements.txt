@@ -1,11 +1,4 @@
-coverage==7.13.4
-iniconfig==2.3.0
 mrjob==0.7.4
 packaging==26.0
-pluggy==1.6.0
-py4j==0.10.9.9
-Pygments==2.19.2
-pyspark==4.1.1
 pytest==9.0.2
 pytest-cov==7.0.0
-PyYAML==6.0.3
